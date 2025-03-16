@@ -1,0 +1,27 @@
+version: '3'
+services:
+  redis:
+    image: redis:alpine
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - TMDB_API_KEY=76351748570a1a7e7d7746e49fbc8e10
+      - TMDB_ACCOUNT_ID=21879367
+      - TMDB_ACCESS_TOKEN=eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NjM1MTc0ODU3MGExYTdlN2Q3NzQ2ZTQ5ZmJjOGUxMCIsIm5iZiI6MTc0MTg5ODcwNC44OTc5OTk4LCJzdWIiOiI2N2QzNDNkMDFjOGJiOGUwYzgzMGY5MDkiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.e1-X_h1fEHwL3AxKOr3rxblEbRz2AS9W5Kj8E3zb5t4
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - CACHE_TTL=600
+    depends_on:
+      - redis
+
+volumes:
+  redis_data:
