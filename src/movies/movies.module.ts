@@ -9,7 +9,14 @@ import { MoviesService } from './movies.service';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    CacheModule.register({ ttl: 600, max: 100 }),
+        CacheModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        ttl: configService.get<number>('CACHE_TTL', 600),
+        max: 100,
+      }),
+      inject: [ConfigService],
+    }),
     HttpModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
