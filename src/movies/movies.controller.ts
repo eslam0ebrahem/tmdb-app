@@ -25,14 +25,6 @@ export class MoviesController {
     return this.moviesService.getTopRatedMovies(page);
   }
 
-  @ApiOperation({ summary: 'Get upcoming movies' })
-  @ApiQuery({ name: 'page', required: false, description: 'Page number for pagination (default: 1)' })
-  @ApiResponse({ status: 200, description: 'List of upcoming movies'})
-  @Get('upcoming')
-  async getUpcomingMovies(@Query('page') page = 1) {
-    return this.moviesService.getUpcomingMovies(page);
-  }
-
   @ApiOperation({ summary: 'Search for movies based on query' })
   @ApiQuery({ name: 'query', required: true, description: 'Search term for movies' })
   @ApiQuery({ name: 'page', required: false, description: 'Page number for pagination (default: 1)' })

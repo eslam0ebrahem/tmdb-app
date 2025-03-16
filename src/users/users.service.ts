@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
@@ -10,13 +10,25 @@ export class UsersService {
     private readonly configService: ConfigService,
   ) {}
 
+  private getAccountId() {
+    const accountId = this.configService.get<string>('TMDB_ACCOUNT_ID');
+    if (!accountId) {
+      throw new InternalServerErrorException('TMDB account ID not configured');
+    }
+    return accountId;
+  }
+  
   private getAuthHeaders() {
+    const token = this.configService.get('TMDB_ACCESS_TOKEN');
+    if (!token) {
+      throw new InternalServerErrorException('TMDB access token not configured');
+    }
     return {
-      Authorization: `Bearer ${this.configService.get('TMDB_ACCESS_TOKEN')}`,
+      Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     };
   }
-
+  
   async addToFavorites(mediaId: number, favorite: boolean) {
     const accountId = this.configService.get<string>('TMDB_ACCOUNT_ID');
     const response = await firstValueFrom(
@@ -41,9 +53,7 @@ export class UsersService {
     return response.data;
   }
 
-  private getAccountId() {
-    return this.configService.get<string>('TMDB_ACCOUNT_ID');
-  }
+
 
   async getFavoriteMovies(page: number) {
     const response = await firstValueFrom(

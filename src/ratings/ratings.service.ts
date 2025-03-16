@@ -1,4 +1,3 @@
-// src/ratings/ratings.service.ts
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';

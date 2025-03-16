@@ -14,7 +14,6 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Add/remove from favorites' })
   @ApiBody({ 
-    type: FavoriteDto, 
     description: 'Media ID and favorite status (true to add, false to remove)',
     examples: {
       'application/json': {
@@ -34,7 +33,6 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Add/remove from watchlist' })
   @ApiBody({ 
-    type: WatchlistDto, 
     description: 'Media ID and watchlist status (true to add, false to remove)',
     examples: {
       'application/json': {

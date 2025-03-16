@@ -1,18 +1,14 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { Cache } from 'cache-manager';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class TrendingService {
   constructor(
     private readonly httpService: HttpService,
-    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,  // Inject CACHE_MANAGER
   ) {}
 
   private async fetchTrendingData(
-    cacheKey: string,
     path: string,
     page: number = 1,
     params: Record<string, any> = {}
@@ -33,13 +29,13 @@ export class TrendingService {
   }
 
   async getAllTrending(page: number = 1) {
-    return this.fetchTrendingData('trending_all', 'trending/all/day', page, {
+    return this.fetchTrendingData( 'trending/all/day', page, {
       language: 'en-US',
     });
   }
 
   async getMovieTrending(page: number = 1) {
-    return this.fetchTrendingData('trending_movies', 'trending/movie/day', page, {
+    return this.fetchTrendingData( 'trending/movie/day', page, {
       language: 'en-US',
     });
   }

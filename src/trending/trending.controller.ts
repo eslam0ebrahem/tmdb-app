@@ -19,8 +19,7 @@ export class TrendingController {
   @ApiResponse({
     status: 200,
     description: 'List of all trending content',
-    type: [String], // Adjust the type to your actual response format (e.g., Movie, TV Show models)
-  })
+    type: [String],   })
   @Get('all')
   async getAllTrending(@Query('page') page = 1) {
     return this.trendingService.getAllTrending(page);
@@ -36,7 +35,7 @@ export class TrendingController {
   @ApiResponse({
     status: 200,
     description: 'List of trending movies',
-    type: [String], // Adjust the type to your actual response format (e.g., Movie models)
+    type: [String],
   })
   @Get('movies')
   async getMovieTrending(@Query('page') page = 1) {

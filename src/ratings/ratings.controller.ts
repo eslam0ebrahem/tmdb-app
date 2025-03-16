@@ -13,12 +13,11 @@ export class RatingsController {
   @ApiOperation({ summary: 'Rate a movie' })
   @ApiParam({ name: 'movieId', type: Number, description: 'Unique identifier for the movie to be rated' })
   @ApiBody({
-    type: MovieRatingDto,
     description: 'Rating value for the movie',
     examples: {
       'application/json': {
         value: {
-          value: 8.5, // Example rating value
+          value: 8.5,
         },
         description: 'Example of rating a movie with a score of 8.5',
       },
@@ -41,7 +40,6 @@ export class RatingsController {
   @ApiOperation({ summary: 'Rate a TV show' })
   @ApiParam({ name: 'seriesId', type: Number, description: 'Unique identifier for the TV show to be rated' })
   @ApiBody({
-    type: TvRatingDto,
     description: 'Rating value for the TV show',
     examples: {
       'application/json': {
